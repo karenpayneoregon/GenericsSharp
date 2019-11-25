@@ -33,7 +33,9 @@ namespace DBNullGenericsSqlServer.Classes
             if (conversionType.IsGenericType && conversionType.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
                 if (value == null)
+                {
                     return null;
+                }
 
                 conversionType = Nullable.GetUnderlyingType(conversionType);
             }

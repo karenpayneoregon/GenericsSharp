@@ -25,21 +25,21 @@ namespace DBNullGenericsSqlServer.Classes
             var listBasedOnPassedType = new List<T>();
 
             // ReSharper disable once SuggestVarOrType_SimpleTypes
-            T genericTypeObject = default(T);
+            T genericObject = default(T);
 
             while (reader.Read())
             {
-                genericTypeObject = Activator.CreateInstance<T>();
+                genericObject = Activator.CreateInstance<T>();
 
-                foreach (var prop in genericTypeObject.GetType().GetProperties())
+                foreach (var prop in genericObject.GetType().GetProperties())
                 {
                     if (!Equals(reader[prop.Name], DBNull.Value))
                     {
-                        prop.SetValue(genericTypeObject, reader[prop.Name], null);
+                        prop.SetValue(genericObject, reader[prop.Name], null);
                     }
                 }
 
-                listBasedOnPassedType.Add(genericTypeObject);
+                listBasedOnPassedType.Add(genericObject);
             }
 
             return listBasedOnPassedType;
