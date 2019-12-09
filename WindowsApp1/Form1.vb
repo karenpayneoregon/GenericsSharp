@@ -23,6 +23,19 @@ Public Class Form1
         Console.WriteLine(AppConfiguration.ConvertOrDefault(Of Date)(ConfigurationManager.AppSettings("AlertDate1")) = Date.MinValue)
 
     End Sub
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If My.Application.HasCommandLineArguments Then
+            For Each ca As String In My.Application.CommandLineArguments
+                ListBox1.Items.Add(ca)
+            Next
+
+        End If
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+
+    End Sub
 End Class
 
 <Extension()>
