@@ -21,7 +21,7 @@ namespace DBNullGenericsSqlServer.Extensions
         /// <returns></returns>
         public static T Get<T>(this IDataReader reader, string columnName, T defaultValue = default(T))
         {
-            var value = reader[columnName];
+            var value = reader[columnName];           
             if (value.IsNull())
                 return defaultValue;
 

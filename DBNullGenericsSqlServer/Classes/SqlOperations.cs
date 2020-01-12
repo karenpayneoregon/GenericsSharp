@@ -37,7 +37,8 @@ namespace DBNullGenericsSqlServer.Classes
                 using (var cmd = new SqlCommand {Connection = cn})
                 {
 
-                    cmd.CommandText = "SELECT id,FirstName,LastName,AccountNumber,Dues,RenewDate FROM dbo.WorkingWithDbNull";
+                    cmd.CommandText = "SELECT id,FirstName,LastName,AccountNumber,Dues,RenewDate " + 
+                                      "FROM dbo.WorkingWithDbNull";
 
                     cn.Open();
 
@@ -86,7 +87,8 @@ namespace DBNullGenericsSqlServer.Classes
                 using (var cmd = new SqlCommand { Connection = cn })
                 {
 
-                    cmd.CommandText = "SELECT id,FirstName,LastName,AccountNumber,Dues,RenewDate FROM dbo.WorkingWithDbNull";
+                    cmd.CommandText = "SELECT id,FirstName,LastName,AccountNumber,Dues,RenewDate " + 
+                                      "FROM dbo.WorkingWithDbNull";
 
                     cn.Open();
 
@@ -138,7 +140,10 @@ namespace DBNullGenericsSqlServer.Classes
                 using (var cmd = new SqlCommand { Connection = cn })
                 {
 
-                    cmd.CommandText = "SELECT id,FirstName,LastName,AccountNumber,Dues,RenewDate FROM dbo.WorkingWithDbNull ORDER BY LastName DESC";
+                    cmd.CommandText = "SELECT id,FirstName,LastName,AccountNumber,Dues,RenewDate " + 
+                                      "FROM dbo.WorkingWithDbNull " + 
+                                      "ORDER BY LastName DESC";
+
 
                     cn.Open();
 
@@ -176,7 +181,7 @@ namespace DBNullGenericsSqlServer.Classes
         /// this case yet no a bad idea to keep in the event a unknown problem rises.
         /// </summary>
         /// <returns></returns>
-        public (List<WorkingWithDbNull> records, List<string> errorList) ReadTableWithGenericsExtensions()
+        public async Task<(List<WorkingWithDbNull> records, List<string> errorList)> ReadTableWithGenericsExtensionsAsync()
         {
             var results = new List<WorkingWithDbNull>();
             var errorMessages = new List<string>();
@@ -186,14 +191,17 @@ namespace DBNullGenericsSqlServer.Classes
                 using (var cmd = new SqlCommand { Connection = cn })
                 {
 
-                    cmd.CommandText = "SELECT id,FirstName,LastName,AccountNumber,Dues,RenewDate FROM dbo.WorkingWithDbNull ORDER BY LastName DESC";
+                    cmd.CommandText = 
+                        "SELECT id,FirstName,LastName,AccountNumber,Dues,RenewDate " + 
+                        "FROM dbo.WorkingWithDbNull " + 
+                        "ORDER BY LastName DESC";
 
-                    cn.Open();
+                    await cn.OpenAsync();
 
-                    var reader = cmd.ExecuteReader();
+                    var reader = await cmd.ExecuteReaderAsync();
 
 
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         try
                         {

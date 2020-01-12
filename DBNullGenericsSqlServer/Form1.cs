@@ -88,13 +88,13 @@ namespace DBNullGenericsSqlServer
             }
         }
 
-        private void ReadWithNullsUsingGenericExtensionButton_Click(object sender, EventArgs e)
+        private async void ReadWithNullsUsingGenericExtensionButton_Click(object sender, EventArgs e)
         {
             textBox1.Text = "";
             dataGridView1.DataSource = null;
 
             var operations = new SqlOperations();
-            var (records, errorList) = operations.ReadTableWithGenericsExtensions();
+            var (records, errorList) = await operations.ReadTableWithGenericsExtensionsAsync();
 
             if (records.Any())
             {
@@ -110,8 +110,6 @@ namespace DBNullGenericsSqlServer
                     textBox1.AppendText(errorMessage + "\n");
                 }
             }
-
-            
         }
 
         private void ReaderToGenericListButton_Click(object sender, EventArgs e)

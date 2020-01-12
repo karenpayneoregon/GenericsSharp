@@ -25,8 +25,12 @@ namespace ReadAppConfigurationGeneric
             var testModeConventional = ConfigurationManager.AppSettings["DatabaseServer"];
             Console.WriteLine($"Get TestMode conventional: {testModeConventional}");
 
-            var DatabaseServerWrapper = AppConfiguration.DatabaseServer;
-            Console.WriteLine(DatabaseServerWrapper);
+            var databaseServerWrapper = AppConfiguration.DatabaseServer;
+            Console.WriteLine($"Get Wrapper: {databaseServerWrapper}");
+
+            var databaseServerGeneric = AppConfiguration.ConfigSetting<string>("DatabaseServer");
+            Console.WriteLine($"Get generic: {databaseServerGeneric}");
+
         }
 
         private void GetBoolButton_Click(object sender, EventArgs e)
