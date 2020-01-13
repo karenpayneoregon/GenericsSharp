@@ -25,6 +25,11 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        DataGridView1.Rows.Add(New Object() {234.99})
+        DataGridView1.Rows.Add(New Object() {34.99})
+        DataGridView1.Rows.Add(New Object() {23.99})
+
+
         If My.Application.HasCommandLineArguments Then
             For Each ca As String In My.Application.CommandLineArguments
                 ListBox1.Items.Add(ca)
@@ -35,6 +40,104 @@ Public Class Form1
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
 
+    End Sub
+
+    Private Sub ResultsButton_Click(sender As Object, e As EventArgs) Handles ResultsButton.Click
+
+        Dim column1Max = Controls.OfType(Of TextBox).
+                Where(Function(tb) tb.Name.StartsWith("Column1")).
+                Select(Function(tb)
+                           Dim result As Decimal = 0
+                           If Decimal.TryParse(tb.Text, result) Then
+                               Return result
+                           Else
+                               Return 0
+                           End If
+                       End Function).Max()
+
+        Total1TextBox.Text = column1Max.ToString()
+
+        Dim column2Max = Controls.OfType(Of TextBox).
+                Where(Function(tb) tb.Name.StartsWith("Column2")).
+                Select(Function(tb)
+                           Dim result As Decimal = 0
+                           If Decimal.TryParse(tb.Text, result) Then
+                               Return result
+                           Else
+                               Return 0
+                           End If
+                       End Function).Max()
+
+        Total2TextBox.Text = column2Max.ToString()
+
+        Dim Column3Max = Controls.OfType(Of TextBox).
+                Where(Function(tb) tb.Name.StartsWith("Column3")).
+                Select(Function(tb)
+                           Dim result As Decimal = 0
+                           If Decimal.TryParse(tb.Text, result) Then
+                               Return result
+                           Else
+                               Return 0
+                           End If
+                       End Function).Max()
+
+        Total3TextBox.Text = column2Max.ToString()
+
+        Dim Column4Max = Controls.OfType(Of TextBox).
+                Where(Function(tb) tb.Name.StartsWith("Column4")).
+                Select(Function(tb)
+                           Dim result As Decimal = 0
+                           If Decimal.TryParse(tb.Text, result) Then
+                               Return result
+                           Else
+                               Return 0
+                           End If
+                       End Function).Max()
+
+        Total4TextBox.Text = column2Max.ToString()
+
+        Dim column5Max = Controls.OfType(Of TextBox).
+                Where(Function(tb) tb.Name.StartsWith("Column5")).
+                Select(Function(tb)
+                           Dim result As Decimal = 0
+                           If Decimal.TryParse(tb.Text, result) Then
+                               Return result
+                           Else
+                               Return 0
+                           End If
+                       End Function).Max()
+
+        Total5TextBox.Text = column2Max.ToString()
+
+        '
+        ' Can be placed into TextBox controls
+        '
+        Dim sums = Controls.OfType(Of TextBox).
+                Where(Function(tb) tb.Name.StartsWith("Column")).
+                Select(Function(tb) CDec(tb.Text)).Sum().
+                ToString()
+
+        Dim max = Controls.OfType(Of TextBox).
+                Where(Function(tb) tb.Name.StartsWith("Column")).
+                Select(Function(tb) CDec(tb.Text)).
+                Max().
+                ToString()
+
+
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        Total1TextBox.Text = DataGridView1.
+            Rows.
+            Cast(Of DataGridViewRow).
+            Max(Function(row)
+                    Dim result As Decimal = 0
+                    If Decimal.TryParse(CStr(row.Cells(0).Value), result) Then
+                        Return result
+                    Else
+                        Return 0
+                    End If
+                End Function).ToString()
     End Sub
 End Class
 
