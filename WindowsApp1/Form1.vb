@@ -1,5 +1,6 @@
 ﻿
 Imports System.Configuration
+Imports System.Drawing.Imaging
 Imports System.Runtime.CompilerServices
 Imports WindowsApp1.Classes
 
@@ -138,6 +139,10 @@ Public Class Form1
                         Return 0
                     End If
                 End Function).ToString()
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        pictureBox1.Image.Save(SaveFileDialog1.FileName, ImageFormat.Bmp)
     End Sub
 End Class
 

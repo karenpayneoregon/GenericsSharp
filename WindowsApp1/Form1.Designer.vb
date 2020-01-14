@@ -45,7 +45,11 @@ Partial Class Form1
         Me.Column2TextBox3 = New System.Windows.Forms.TextBox()
         Me.Column2TextBox2 = New System.Windows.Forms.TextBox()
         Me.Column2TextBox1 = New System.Windows.Forms.TextBox()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.pictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.pictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Button1
@@ -233,11 +237,30 @@ Partial Class Form1
         Me.Column2TextBox1.TabIndex = 16
         Me.Column2TextBox1.Text = "100.99"
         '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(838, 365)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(75, 23)
+        Me.Button3.TabIndex = 22
+        Me.Button3.Text = "Button3"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'pictureBox1
+        '
+        Me.pictureBox1.Location = New System.Drawing.Point(869, 216)
+        Me.pictureBox1.Name = "pictureBox1"
+        Me.pictureBox1.Size = New System.Drawing.Size(100, 50)
+        Me.pictureBox1.TabIndex = 23
+        Me.pictureBox1.TabStop = False
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(978, 450)
+        Me.Controls.Add(Me.pictureBox1)
+        Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.Column2TextBox5)
         Me.Controls.Add(Me.Column2TextBox4)
@@ -263,6 +286,7 @@ Partial Class Form1
         Me.Name = "Form1"
         Me.Text = "Form1"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.pictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -291,4 +315,7 @@ Partial Class Form1
     Friend WithEvents Column2TextBox3 As TextBox
     Friend WithEvents Column2TextBox2 As TextBox
     Friend WithEvents Column2TextBox1 As TextBox
+    Friend WithEvents Button3 As Button
+    Friend WithEvents pictureBox1 As PictureBox
+    Friend WithEvents SaveFileDialog1 As SaveFileDialog
 End Class
