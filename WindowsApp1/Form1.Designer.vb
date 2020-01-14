@@ -48,6 +48,7 @@ Partial Class Form1
         Me.Button3 = New System.Windows.Forms.Button()
         Me.pictureBox1 = New System.Windows.Forms.PictureBox()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
+        Me.Button5 = New System.Windows.Forms.Button()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.pictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -254,11 +255,21 @@ Partial Class Form1
         Me.pictureBox1.TabIndex = 23
         Me.pictureBox1.TabStop = False
         '
+        'Button5
+        '
+        Me.Button5.Location = New System.Drawing.Point(842, 401)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(75, 23)
+        Me.Button5.TabIndex = 24
+        Me.Button5.Text = "Button5"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(978, 450)
+        Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.pictureBox1)
         Me.Controls.Add(Me.Button3)
         Me.Controls.Add(Me.TextBox1)
@@ -318,4 +329,5 @@ Partial Class Form1
     Friend WithEvents Button3 As Button
     Friend WithEvents pictureBox1 As PictureBox
     Friend WithEvents SaveFileDialog1 As SaveFileDialog
+    Friend WithEvents Button5 As Button
 End Class

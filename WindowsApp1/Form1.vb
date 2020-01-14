@@ -2,6 +2,8 @@
 Imports System.Configuration
 Imports System.Drawing.Imaging
 Imports System.Runtime.CompilerServices
+Imports System.Text
+Imports System.Text.RegularExpressions
 Imports WindowsApp1.Classes
 
 Public Class Form1
@@ -142,7 +144,28 @@ Public Class Form1
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-        pictureBox1.Image.Save(SaveFileDialog1.FileName, ImageFormat.Bmp)
+
+
+        Dim line = "[""Mahmud"",""karen"",""mike"",""Mahmud"""
+
+        For Each m As Match In Regex.Matches(line, "(?<="")[\w]+(?!="")")
+            Console.WriteLine(m.Value)
+        Next
+
+
+
+
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+        Dim line = "[""Mahmud"",""karen"",""mike"",""Махмуд"""
+        Dim regex As New Regex("""(.*?)""")
+
+        Dim matches = regex.Matches(line)
+
+        For Each match As Match In matches
+            Console.WriteLine(match.Groups(1))
+        Next
     End Sub
 End Class
 
