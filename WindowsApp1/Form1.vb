@@ -161,11 +161,19 @@ Public Class Form1
         Dim line = "[""Mahmud"",""karen"",""mike"",""Махмуд"""
         Dim regex As New Regex("""(.*?)""")
 
-        Dim matches = regex.Matches(line)
+        Dim match = regex.Matches(line).Cast(Of Match).
+                FirstOrDefault(Function(item) item.Groups(1).Value = "Mahmud")
 
-        For Each match As Match In matches
-            Console.WriteLine(match.Groups(1))
-        Next
+        If match IsNot Nothing Then
+            Console.WriteLine("Found")
+        Else
+            Console.WriteLine("Not found")
+        End If
+
+
+        'For Each match As Match In matches
+        '    Console.WriteLine(match.Groups(1))
+        'Next
     End Sub
 End Class
 
