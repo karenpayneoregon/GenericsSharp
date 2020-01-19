@@ -9,54 +9,53 @@ using NorthWindEntityFramework.Repository;
 namespace NorthWindEntityFramework
 {
     /// <summary>
-    /// Common employee operations
+    /// Common customer operations
     /// </summary>
     /// <remarks>
     /// Note that cascading rules must be set properly on
     /// related tables.
     /// </remarks>
-    public class EmployeesOperations
+    public class CustomersOperations
     {
-        private IGenericRepository<Employee> _repository = null;
-
-        public EmployeesOperations()
+        private IGenericRepository<Customer> _repository = null;
+        public CustomersOperations()
         {
-            _repository = new GenericRepository<Employee, NorthContext>();
+            _repository = new GenericRepository<Customer, NorthContext>();
         }
 
-        public EmployeesOperations(IGenericRepository<Employee> repository)
+        public CustomersOperations(IGenericRepository<Customer> repository)
         {
             _repository = repository;
         }
-
-        public Employee Edit(int employeeIdentifier)
+        public Customer Edit(int customerIdentifier)
         {
-            var item = _repository.GetById(employeeIdentifier);
+            var item = _repository.GetById(customerIdentifier);
 
             return item;
         }
-        public Employee Edit(Employee employee)
+        public Customer Edit(Customer customer)
         {
 
-            _repository.Update(employee);
+            _repository.Update(customer);
             _repository.Save();
 
-            return employee;
+            return customer;
         }
+
         /// <summary>
         /// Add a new employee
         /// </summary>
-        /// <param name="employee"></param>
+        /// <param name="customer"></param>
         /// <returns></returns>
-        public Employee Add(Employee employee)
+        public Customer Add(Customer customer)
         {
-            return _repository.Insert(employee);
+            return _repository.Insert(customer);
         }
         /// <summary>
         /// Uses IGenericRepository GetAll synchronously 
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Employee> GetEmployees()
+        public IEnumerable<Customer> GetCustomer()
         {
             return _repository.GetAll();
         }
@@ -64,19 +63,22 @@ namespace NorthWindEntityFramework
         /// Uses IGenericRepository GetAll asynchronously with a DTO
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<EmployeeDto>> GetEmployeesAsync()
+        public async Task<IEnumerable<CustomerDto>> GetEmployeesAsync()
         {
             var iEnumerableResults = await Task.Run(() => _repository.GetAll());
 
-            return iEnumerableResults.Select(emp => new EmployeeDto()
+            return iEnumerableResults.Select(customer => new CustomerDto()
             {
-                Id = emp.EmployeeID,
-                FirstName = emp.FirstName,
-                LastName = emp.LastName
+                CustomerIdentifier = customer.CustomerIdentifier,
+                ContactId = customer.ContactId,
+                CompanyName = customer.CompanyName,
+                ContactTypeIdentifier = customer.ContactTypeIdentifier,
+                CountryIdentifier = customer.CountryIdentifier
             });
         }
+
         /// <summary>
-        /// Remove single employee
+        /// Remove single customer
         /// </summary>
         /// <param name="identifier">Existing employee identifier</param>
         /// <returns></returns>

@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomersOperations.cs" />
+    <Compile Include="DTO\CustomerDto.cs" />
     <Compile Include="DTO\EmployeeDto.cs" />
     <Compile Include="EmployeesOperations.cs" />
     <Compile Include="Interfaces\IGenericRepository.cs" />

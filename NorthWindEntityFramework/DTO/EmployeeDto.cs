@@ -12,5 +12,6 @@ namespace NorthWindEntityFramework
         public string FullName => $"{FirstName} {LastName}";
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public override string ToString() => FullName;
     }
 }
