@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthWindEntityFrameworkWin
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{E8811640-326A-4AE2-9424-42DA851D756C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsLanguageExtensions", "WinFormsLanguageExtensions\WinFormsLanguageExtensions.csproj", "{7382CBFE-448B-4AE2-97B6-D5B56B6E7638}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,10 @@ Global
 		{07389FE5-A0D5-4405-A10B-8E7FCF5D0384}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07389FE5-A0D5-4405-A10B-8E7FCF5D0384}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07389FE5-A0D5-4405-A10B-8E7FCF5D0384}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7382CBFE-448B-4AE2-97B6-D5B56B6E7638}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7382CBFE-448B-4AE2-97B6-D5B56B6E7638}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7382CBFE-448B-4AE2-97B6-D5B56B6E7638}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7382CBFE-448B-4AE2-97B6-D5B56B6E7638}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +88,7 @@ Global
 		{AD06B7AA-39BA-44C5-8FF3-408569A88E74} = {E8811640-326A-4AE2-9424-42DA851D756C}
 		{07389FE5-A0D5-4405-A10B-8E7FCF5D0384} = {30C4B03A-14E6-4F4C-B17E-EE41D445DB7F}
 		{E8811640-326A-4AE2-9424-42DA851D756C} = {30C4B03A-14E6-4F4C-B17E-EE41D445DB7F}
+		{7382CBFE-448B-4AE2-97B6-D5B56B6E7638} = {E8811640-326A-4AE2-9424-42DA851D756C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {42681395-68E3-4D27-9CA1-21737FF6EC7B}

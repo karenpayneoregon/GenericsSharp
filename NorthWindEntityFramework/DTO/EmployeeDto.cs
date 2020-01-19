@@ -9,6 +9,8 @@ namespace NorthWindEntityFramework
     public class EmployeeDto
     {
         public int Id { get; set; }
-        public string FullName { get; set; }
+        public string FullName => $"{FirstName} {LastName}";
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

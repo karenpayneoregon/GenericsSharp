@@ -95,6 +95,10 @@
       <Project>{ad06b7aa-39ba-44c5-8ff3-408569a88e74}</Project>
       <Name>NorthWindEntityFramework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WinFormsLanguageExtensions\WinFormsLanguageExtensions.csproj">
+      <Project>{7382cbfe-448b-4ae2-97b6-d5b56b6e7638}</Project>
+      <Name>WinFormsLanguageExtensions</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

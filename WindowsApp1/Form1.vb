@@ -1,5 +1,7 @@
 ﻿
+Imports System.ComponentModel
 Imports System.Configuration
+Imports System.Data.SqlClient
 Imports System.Drawing.Imaging
 Imports System.Runtime.CompilerServices
 Imports System.Text
@@ -158,6 +160,7 @@ Public Class Form1
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+
         Dim line = "[""Mahmud"",""karen"",""mike"",""Махмуд"""
         Dim regex As New Regex("""(.*?)""")
 
@@ -174,8 +177,23 @@ Public Class Form1
         'For Each match As Match In matches
         '    Console.WriteLine(match.Groups(1))
         'Next
+
+        '
+        '
+
+
     End Sub
 End Class
+Public Module ControlExtensions
+    <Extension>
+    Public Sub InvokeIfRequired(Of T As ISynchronizeInvoke)(control As T, action As Action(Of T))
+        If control.InvokeRequired Then
+            control.Invoke(New Action(Sub() action(control)), Nothing)
+        Else
+            action(control)
+        End If
+    End Sub
+End Module
 
 <Extension()>
 Public Module DataReaderExtensions

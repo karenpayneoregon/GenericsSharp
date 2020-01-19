@@ -10,36 +10,40 @@ namespace NorthWindEntityFramework
 {
     public class EmployeesOperations
     {
-        private IGenericRepository<Employee> repository = null;
+        private IGenericRepository<Employee> _repository = null;
 
         public EmployeesOperations()
         {
-            repository = new GenericRepository<Employee>();
+            _repository = new GenericRepository<Employee, NorthContext>();
         }
 
         public EmployeesOperations(IGenericRepository<Employee> repository)
         {
-            repository = repository;
+            _repository = repository;
         }
 
         public Employee Edit(int employeeIdentifier)
         {
-            var model = repository.GetById(employeeIdentifier);
+            var model = _repository.GetById(employeeIdentifier);
 
             return model;
         }
         public Employee Edit(Employee employee)
         {
 
-            repository.Update(employee);
-            repository.Save();
+            _repository.Update(employee);
+            _repository.Save();
 
             return employee;
         }
-
+        /// <summary>
+        /// Add a new employee
+        /// </summary>
+        /// <param name="employee"></param>
+        /// <returns></returns>
         public Employee Add(Employee employee)
         {
-            return repository.Insert(employee);
+            return _repository.Insert(employee);
         }
         /// <summary>
         /// Uses IGenericRepository GetAll synchronously 
@@ -47,7 +51,7 @@ namespace NorthWindEntityFramework
         /// <returns></returns>
         public IEnumerable<Employee> GetEmployees()
         {
-            return repository.GetAll();
+            return _repository.GetAll();
         }
         /// <summary>
         /// Uses IGenericRepository GetAll asynchronously with a DTO
@@ -55,12 +59,13 @@ namespace NorthWindEntityFramework
         /// <returns></returns>
         public async Task<IEnumerable<EmployeeDto>> GetEmployeesAsync()
         {
-            var iEnumerableResults = await Task.Run(() => repository.GetAll());
+            var iEnumerableResults = await Task.Run(() => _repository.GetAll());
 
             return iEnumerableResults.Select(emp => new EmployeeDto()
             {
                 Id = emp.EmployeeID,
-                FullName = $"{emp.FirstName} {emp.LastName}"
+                FirstName = emp.FirstName,
+                LastName = emp.LastName
             });
         }
         /// <summary>
@@ -70,21 +75,24 @@ namespace NorthWindEntityFramework
         /// <returns></returns>
         public bool Delete(int identifier)
         {
-            if (repository.GetById(identifier) == null)
+            if (_repository.GetById(identifier) == null)
             {
                 return false;
             }
 
-            repository.Delete(identifier);
-            repository.Save();
+            _repository.Delete(identifier);
+            _repository.Save();
 
-            return repository.GetById(identifier) == null;
+            return _repository.GetById(identifier) == null;
 
         }
-
+        /// <summary>
+        /// Save changes 
+        /// </summary>
+        /// <returns>Count of entities saved</returns>
         public int Save()
         {
-            return repository.Save();
+            return _repository.Save();
         }
     }
 }

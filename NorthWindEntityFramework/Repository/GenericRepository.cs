@@ -8,71 +8,85 @@ using NorthWindEntityFramework.Interfaces;
 
 namespace NorthWindEntityFramework.Repository
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<TEntity, TContext> : IGenericRepository<TEntity> 
+        where TEntity : class 
+        where TContext : DbContext
     {
-        private NorthContext _northContext = null;
-        private DbSet<T> table = null;
+        private TContext _dbContext = null;
+        private DbSet<TEntity> table = null;
 
         public GenericRepository()
         {
-            _northContext = new NorthContext();
-            table = _northContext.Set<T>();
+            _dbContext = Activator.CreateInstance<TContext>();
+            table = _dbContext.Set<TEntity>();
+
         }
         public GenericRepository(NorthContext context)
         {
-            _northContext = context;
-            table = context.Set<T>();
+            _dbContext = Activator.CreateInstance<TContext>();
+            table = context.Set<TEntity>();
         }
-        public IEnumerable<T> GetAll()
+        public IEnumerable<TEntity> GetAll()
         {
             return table.ToList();
         }
-        public T GetById(object id)
+        public TEntity GetById(object id)
         {
             return table.Find(id);
         }
-        public void Update(T obj)
+        public void Update(TEntity obj)
         {
             table.Attach(obj);
-            _northContext.Entry(obj).State = EntityState.Modified;
+            _dbContext.Entry(obj).State = EntityState.Modified;
         }
         public void Save()
         {
-            _northContext.SaveChanges();
+            _dbContext.SaveChanges();
         }
 
-        IEnumerable<T> IGenericRepository<T>.GetAll()
+        IEnumerable<TEntity> IGenericRepository<TEntity>.GetAll()
         {
             return table.ToList();
         }
 
-        T IGenericRepository<T>.GetById(object id)
+        TEntity IGenericRepository<TEntity>.GetById(object id)
         {
-            var item = _northContext.Set<T>().Find(id);
+            var item = _dbContext.Set<TEntity>().Find(id);
             return item;
         }
 
-        T IGenericRepository<T>.Insert(T obj)
+        TEntity IGenericRepository<TEntity>.Insert(TEntity obj)
         {
             return table.Add(obj);
         }
 
-        void IGenericRepository<T>.Update(T obj)
+        void IGenericRepository<TEntity>.Update(TEntity obj)
         {
             table.Attach(obj);
-            _northContext.Entry(obj).State = EntityState.Modified;
+            _dbContext.Entry(obj).State = EntityState.Modified;
         }
 
-        void IGenericRepository<T>.Delete(object id)
+        void IGenericRepository<TEntity>.Delete(object id)
         {
-            var item = _northContext.Set<T>().Find(id);
+            var item = _dbContext.Set<TEntity>().Find(id);
             table.Remove(item);
         }
 
-        int IGenericRepository<T>.Save()
+        int IGenericRepository<TEntity>.Save()
         {
-            return _northContext.SaveChanges();
+            return _dbContext.SaveChanges();
         }
+
+        /// <summary>
+        /// Returns any items of TEntity matching criteria of the Predicate in pPredicate
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public IEnumerable<TEntity> SearchFor(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate)
+        {
+            return _dbContext.Set<TEntity>().Where(predicate).AsEnumerable();
+        }
+
     }
 
 }

@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace NorthWindEntityFramework.Interfaces
 {
-    public interface IGenericRepository<T> where T : class
+    public interface IGenericRepository<TEntity> where TEntity : class
     {
-        IEnumerable<T> GetAll();
-        T GetById(object id);
-        T Insert(T obj);
-        void Update(T obj);
+        IEnumerable<TEntity> SearchFor(System.Linq.Expressions.Expression<Func<TEntity, bool>> predicate);
+        IEnumerable<TEntity> GetAll();
+        TEntity GetById(object id);
+        TEntity Insert(TEntity obj);
+        void Update(TEntity obj);
         void Delete(object id);
         int Save();
     }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -8,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NorthWindEntityFramework;
+using WinFormsLanguageExtensions;
 
 namespace NorthWindEntityFrameworkWindowsForm
 {
@@ -24,24 +24,45 @@ namespace NorthWindEntityFrameworkWindowsForm
 
         private async void Form1_Shown(object sender, EventArgs e)
         {
+            this.EnableButton(false);
             EmployeeSetup();
         }
 
         private async void EmployeeSetup()
         {
+            EmployeeDataGridView.AutoGenerateColumns = false;
+
             var employees = await _employeesOperations.GetEmployeesAsync().ConfigureAwait(true);
             _employeeBindingSource.DataSource = employees.ToList();
-            EmployeeDataGridView.Invoke((MethodInvoker)(() => EmployeeDataGridView.DataSource = _employeeBindingSource));
 
-            EmployeeDataGridView.Columns["id"].Width = 30;
-            EmployeeDataGridView.Columns["FullName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            EmployeeDataGridView.Columns["FullName"].HeaderText = "Name";
+            EmployeeDataGridView.InvokeIfRequired(d => { d.DataSource = _employeeBindingSource; });
 
-            EmployeesInsertButton.Enabled = true;
-            EmployeesDeleteButton.Enabled = true;
+            EmployeeDataGridView.Columns["idColumn"].Width = 30;
+            EmployeeDataGridView.Columns["FullNameColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            EmployeeDataGridView.Columns["FullNameColumn"].HeaderText = "Name";
 
+            EmployeeFirstNameTextBox.DataBindings.Add("Text", _employeeBindingSource, "FirstName");
+            EmployeeLastNameTextBox.DataBindings.Add("Text", _employeeBindingSource, "LastName");
+
+            EmployeesGroupBox.EnableButton();
         }
 
+        private void GetByEmployeeIdButton_Click(object sender, EventArgs e)
+        {
+            var employeeId = ((EmployeeDto)_employeeBindingSource.Current).Id;
+            var employee = _employeesOperations.Edit(employeeId);
+            Console.WriteLine();
+
+        }
+        private void EmployeeUpdateButton_Click(object sender, EventArgs e)
+        {
+            var empDto = ((EmployeeDto)_employeeBindingSource.Current);
+            var employee = _employeesOperations.Edit(empDto.Id);
+            employee.FirstName = EmployeeFirstNameTextBox.Text;
+            employee.LastName = EmployeeLastNameTextBox.Text;
+            _employeesOperations.Edit(employee);
+
+        }
         private void EmployeesDeleteButton_Click(object sender, EventArgs e)
         {
 
@@ -79,8 +100,15 @@ namespace NorthWindEntityFrameworkWindowsForm
 
             if (results == 1)
             {
-                ((List<EmployeeDto>)_employeeBindingSource.DataSource).Add(new EmployeeDto() {Id = employee.EmployeeID, FullName = $"{employee.FirstName} {employee.LastName}"});
+                ((List<EmployeeDto>)_employeeBindingSource.DataSource).Add(new EmployeeDto()
+                {
+                    Id = employee.EmployeeID,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName
+                });
+
                 _employeeBindingSource.ResetBindings(false);
+
             }
             else
             {
@@ -88,5 +116,7 @@ namespace NorthWindEntityFrameworkWindowsForm
             }
             
         }
+
+
     }
 }
