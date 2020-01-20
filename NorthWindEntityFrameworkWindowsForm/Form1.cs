@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using NorthWindEntityFramework;
 using WinFormsLanguageExtensions;
+using GeneralExtensionMethods;
 
 namespace NorthWindEntityFrameworkWindowsForm
 {
@@ -32,7 +33,7 @@ namespace NorthWindEntityFrameworkWindowsForm
         {
             EmployeeDataGridView.AutoGenerateColumns = false;
 
-            var employees = await _employeesOperations.GetEmployeesAsync().ConfigureAwait(true);
+            IEnumerable<Employee> employees = await _employeesOperations.GetEmployeesAsync().ConfigureAwait(true);
             _employeeBindingSource.DataSource = employees.ToList();
 
             EmployeeDataGridView.InvokeIfRequired(d => { d.DataSource = _employeeBindingSource; });
@@ -53,6 +54,7 @@ namespace NorthWindEntityFrameworkWindowsForm
         /// <param name="e"></param>
         private void GetByEmployeeIdButton_Click(object sender, EventArgs e)
         {
+
             var employeeId = ((Employee)_employeeBindingSource.Current).EmployeeID;
             Employee employee = _employeesOperations.Edit(employeeId);
             MessageBox.Show($"ID: {employee.EmployeeID}\nBirthday: {employee.BirthDate.Value.Date:d}");
@@ -120,6 +122,18 @@ namespace NorthWindEntityFrameworkWindowsForm
             {
                 MessageBox.Show("Save failed");
             }
+
+        }
+        /// <summary>
+        /// Hard coded search
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchForButton_Click(object sender, EventArgs e)
+        {
+            var employees = _employeesOperations.SearchFor(emp => emp.Title == "Sales Representative" && emp.Country == "USA");
+            var results = employees.Select(emp => $"{emp.SearchForInformation}").ToDelimitedString("\n");
+            MessageBox.Show(results);
 
         }
     }

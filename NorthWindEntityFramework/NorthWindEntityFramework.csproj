@@ -66,6 +66,7 @@
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Order_Detail.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="PartialClasses\Employee.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Shipper.cs" />
     <Compile Include="Models\Supplier.cs" />

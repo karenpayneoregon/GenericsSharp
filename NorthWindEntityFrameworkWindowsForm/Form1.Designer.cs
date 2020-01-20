@@ -36,17 +36,19 @@
             this.EmployeeFirstNameTextBox = new System.Windows.Forms.TextBox();
             this.GetByEmployeeIdButton = new System.Windows.Forms.Button();
             this.EmployeeDataGridView = new System.Windows.Forms.DataGridView();
-            this.EmployeesInsertButton = new System.Windows.Forms.Button();
-            this.EmployeesDeleteButton = new System.Windows.Forms.Button();
             this.IdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FullNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EmployeesInsertButton = new System.Windows.Forms.Button();
+            this.EmployeesDeleteButton = new System.Windows.Forms.Button();
+            this.SearchForButton = new System.Windows.Forms.Button();
             this.EmployeesGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EmployeeDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // EmployeesGroupBox
             // 
+            this.EmployeesGroupBox.Controls.Add(this.SearchForButton);
             this.EmployeesGroupBox.Controls.Add(this.EmployeeUpdateButton);
             this.EmployeesGroupBox.Controls.Add(this.label2);
             this.EmployeesGroupBox.Controls.Add(this.label1);
@@ -131,26 +133,6 @@
             this.EmployeeDataGridView.Size = new System.Drawing.Size(348, 350);
             this.EmployeeDataGridView.TabIndex = 2;
             // 
-            // EmployeesInsertButton
-            // 
-            this.EmployeesInsertButton.Location = new System.Drawing.Point(25, 83);
-            this.EmployeesInsertButton.Name = "EmployeesInsertButton";
-            this.EmployeesInsertButton.Size = new System.Drawing.Size(75, 23);
-            this.EmployeesInsertButton.TabIndex = 1;
-            this.EmployeesInsertButton.Text = "Insert";
-            this.EmployeesInsertButton.UseVisualStyleBackColor = true;
-            this.EmployeesInsertButton.Click += new System.EventHandler(this.EmployeesInsertButton_Click);
-            // 
-            // EmployeesDeleteButton
-            // 
-            this.EmployeesDeleteButton.Location = new System.Drawing.Point(25, 112);
-            this.EmployeesDeleteButton.Name = "EmployeesDeleteButton";
-            this.EmployeesDeleteButton.Size = new System.Drawing.Size(75, 23);
-            this.EmployeesDeleteButton.TabIndex = 0;
-            this.EmployeesDeleteButton.Text = "Delete";
-            this.EmployeesDeleteButton.UseVisualStyleBackColor = true;
-            this.EmployeesDeleteButton.Click += new System.EventHandler(this.EmployeesDeleteButton_Click);
-            // 
             // IdColumn
             // 
             this.IdColumn.DataPropertyName = "EmployeeID";
@@ -171,6 +153,36 @@
             this.LastNameColumn.HeaderText = "Last";
             this.LastNameColumn.Name = "LastNameColumn";
             this.LastNameColumn.ReadOnly = true;
+            // 
+            // EmployeesInsertButton
+            // 
+            this.EmployeesInsertButton.Location = new System.Drawing.Point(25, 83);
+            this.EmployeesInsertButton.Name = "EmployeesInsertButton";
+            this.EmployeesInsertButton.Size = new System.Drawing.Size(75, 23);
+            this.EmployeesInsertButton.TabIndex = 1;
+            this.EmployeesInsertButton.Text = "Insert";
+            this.EmployeesInsertButton.UseVisualStyleBackColor = true;
+            this.EmployeesInsertButton.Click += new System.EventHandler(this.EmployeesInsertButton_Click);
+            // 
+            // EmployeesDeleteButton
+            // 
+            this.EmployeesDeleteButton.Location = new System.Drawing.Point(25, 112);
+            this.EmployeesDeleteButton.Name = "EmployeesDeleteButton";
+            this.EmployeesDeleteButton.Size = new System.Drawing.Size(75, 23);
+            this.EmployeesDeleteButton.TabIndex = 0;
+            this.EmployeesDeleteButton.Text = "Delete";
+            this.EmployeesDeleteButton.UseVisualStyleBackColor = true;
+            this.EmployeesDeleteButton.Click += new System.EventHandler(this.EmployeesDeleteButton_Click);
+            // 
+            // SearchForButton
+            // 
+            this.SearchForButton.Location = new System.Drawing.Point(25, 141);
+            this.SearchForButton.Name = "SearchForButton";
+            this.SearchForButton.Size = new System.Drawing.Size(75, 23);
+            this.SearchForButton.TabIndex = 9;
+            this.SearchForButton.Text = "SearchFor";
+            this.SearchForButton.UseVisualStyleBackColor = true;
+            this.SearchForButton.Click += new System.EventHandler(this.SearchForButton_Click);
             // 
             // Form1
             // 
@@ -204,6 +216,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn IdColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn FullNameColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn LastNameColumn;
+        private System.Windows.Forms.Button SearchForButton;
     }
 }
 

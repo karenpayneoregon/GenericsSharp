@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,7 +21,8 @@ namespace NorthWindEntityFramework
     public class EmployeesOperations<TEntity> where TEntity : class
     {
         private IGenericRepository<TEntity> _repository = null;
-        
+        private NorthContext _northContext = new NorthContext();
+
         public EmployeesOperations()
         {
             _repository = new GenericRepository<TEntity, NorthContext>();            
@@ -116,6 +118,16 @@ namespace NorthWindEntityFramework
             }
 
         }
+        /// <summary>
+        /// Perform a search
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public IEnumerable<Employee> SearchFor(Expression<Func<Employee, bool>> predicate)
+        {
+            return _northContext.Set<Employee>().Where(predicate).AsEnumerable();
+        }
+
         /// <summary>
         /// Save changes 
         /// </summary>
