@@ -12,5 +12,9 @@ namespace NorthWindEntityFramework.Interfaces
         void Update(TEntity obj);
         void Delete(object id);
         int Save();
+        /// <summary>
+        /// DbContext
+        /// </summary>
+        object Context { get; set; }
     }
 }

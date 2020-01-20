@@ -13,24 +13,22 @@ namespace NorthWindEntityFramework.Repository
         where TEntity : class 
         where TContext : DbContext
     {
-        private TContext _dbContext = null;
+        public TContext DbContext = null;
         private DbSet<TEntity> _entity = null;
+        
 
         public GenericRepository()
         {
-            _dbContext = Activator.CreateInstance<TContext>();
-            _entity = _dbContext.Set<TEntity>();
+            DbContext = Activator.CreateInstance<TContext>();
+            _entity = DbContext.Set<TEntity>();
+            Context = DbContext;
         }
-
-        public TContext DbContext { get; set; }
         public GenericRepository(NorthContext context)
         {
-            _dbContext = Activator.CreateInstance<TContext>();
-            _dbContext.Configuration.LazyLoadingEnabled = true;
+            DbContext = Activator.CreateInstance<TContext>();
+            DbContext.Configuration.LazyLoadingEnabled = true;
             _entity = context.Set<TEntity>();
         }
-
-        public TContext Context => _dbContext;
         public IEnumerable<TEntity> GetAll()
         {
             return _entity.ToList();
@@ -42,11 +40,17 @@ namespace NorthWindEntityFramework.Repository
         public void Update(TEntity obj)
         {
             _entity.Attach(obj);
-            _dbContext.Entry(obj).State = EntityState.Modified;
+            DbContext.Entry(obj).State = EntityState.Modified;
         }
         public void Save()
         {
-            _dbContext.SaveChanges();
+            DbContext.SaveChanges();
+        }
+
+        object IGenericRepository<TEntity>.Context
+        {
+            get => DbContext;
+            set { }
         }
 
         IEnumerable<TEntity> IGenericRepository<TEntity>.GetAll()
@@ -54,9 +58,10 @@ namespace NorthWindEntityFramework.Repository
             return _entity.ToList();
         }
 
+
         TEntity IGenericRepository<TEntity>.GetById(object id)
         {
-            var item = _dbContext.Set<TEntity>().Find(id);
+            var item = DbContext.Set<TEntity>().Find(id);
             return item;
         }
 
@@ -68,18 +73,18 @@ namespace NorthWindEntityFramework.Repository
         void IGenericRepository<TEntity>.Update(TEntity obj)
         {
             _entity.Attach(obj);
-            _dbContext.Entry(obj).State = EntityState.Modified;
+            DbContext.Entry(obj).State = EntityState.Modified;
         }
 
         void IGenericRepository<TEntity>.Delete(object id)
         {
-            var item = _dbContext.Set<TEntity>().Find(id);
+            var item = DbContext.Set<TEntity>().Find(id);
             _entity.Remove(item);
         }
 
         int IGenericRepository<TEntity>.Save()
         {
-            return _dbContext.SaveChanges();
+            return DbContext.SaveChanges();
         }
 
         /// <summary>
@@ -89,9 +94,11 @@ namespace NorthWindEntityFramework.Repository
         /// <returns></returns>
         public IEnumerable<TEntity> SearchFor(Expression<Func<TEntity, bool>> predicate)
         {
-            return _dbContext.Set<TEntity>().Where(predicate).AsEnumerable();
+            return DbContext.Set<TEntity>().Where(predicate).AsEnumerable();
         }
 
+
+        public object Context { get; set; }
     }
 
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -20,10 +21,9 @@ namespace NorthWindEntityFramework
     {
         private IGenericRepository<TEntity> _repository = null;
         
-
         public EmployeesOperations()
         {
-            _repository = new GenericRepository<TEntity, NorthContext>();
+            _repository = new GenericRepository<TEntity, NorthContext>();            
         }
 
         public EmployeesOperations(IGenericRepository<TEntity> repository)
@@ -33,9 +33,10 @@ namespace NorthWindEntityFramework
 
         public TEntity Edit(int employeeIdentifier)
         {
-            TEntity entity = _repository.GetById(employeeIdentifier);
 
+            TEntity entity = _repository.GetById(employeeIdentifier);
             return entity;
+
         }
         public TEntity Edit(TEntity entity)
         {
@@ -44,6 +45,7 @@ namespace NorthWindEntityFramework
             _repository.Save();
 
             return entity;
+
         }
         /// <summary>
         /// Add a new employee
@@ -83,6 +85,18 @@ namespace NorthWindEntityFramework
                 return false;
             }
 
+            /*
+             * We do not want to remove orders so if there are orders
+             * stop.
+             */
+            Employee employee = ((NorthContext)_repository.Context).
+                Employees.Include(emp => emp.Orders).FirstOrDefault(x => x.EmployeeID == identifier);
+
+            if (employee.Orders != null && employee.Orders.Count >0)
+            {
+                return false;
+            }
+
             _repository.Delete(identifier);
 
             try
@@ -92,17 +106,16 @@ namespace NorthWindEntityFramework
             }
             catch (Exception ex)
             {
+
                 /*
                  * In this case the cause is the record has a dependency
                  * on one or more orders.
                  */
+
                 return false;
             }
 
-            
-
         }
-
         /// <summary>
         /// Save changes 
         /// </summary>
