@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using NorthWindEntityFramework.Interfaces;
@@ -9,71 +10,66 @@ using NorthWindEntityFramework.Repository;
 namespace NorthWindEntityFramework
 {
     /// <summary>
-    /// Common employee operations
+    /// Common operations
     /// </summary>
     /// <remarks>
     /// Note that cascading rules must be set properly on
     /// related tables.
     /// </remarks>
-    public class EmployeesOperations
+    public class EmployeesOperations<TEntity> where TEntity : class
     {
-        private IGenericRepository<Employee> _repository = null;
+        private IGenericRepository<TEntity> _repository = null;
+        
 
         public EmployeesOperations()
         {
-            _repository = new GenericRepository<Employee, NorthContext>();
+            _repository = new GenericRepository<TEntity, NorthContext>();
         }
 
-        public EmployeesOperations(IGenericRepository<Employee> repository)
+        public EmployeesOperations(IGenericRepository<TEntity> repository)
         {
-            _repository = repository;
+            _repository = (IGenericRepository<TEntity>) Convert.ChangeType(repository, typeof(TEntity));
         }
 
-        public Employee Edit(int employeeIdentifier)
+        public TEntity Edit(int employeeIdentifier)
         {
-            var item = _repository.GetById(employeeIdentifier);
+            TEntity entity = _repository.GetById(employeeIdentifier);
 
-            return item;
+            return entity;
         }
-        public Employee Edit(Employee employee)
+        public TEntity Edit(TEntity entity)
         {
 
-            _repository.Update(employee);
+            _repository.Update(entity);
             _repository.Save();
 
-            return employee;
+            return entity;
         }
         /// <summary>
         /// Add a new employee
         /// </summary>
-        /// <param name="employee"></param>
+        /// <param name="entity"></param>
         /// <returns></returns>
-        public Employee Add(Employee employee)
+        public TEntity Add(TEntity entity)
         {
-            return _repository.Insert(employee);
+            return _repository.Insert(entity);
         }
         /// <summary>
         /// Uses IGenericRepository GetAll synchronously 
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Employee> GetEmployees()
+        public IEnumerable<TEntity> GetEmployees()
         {
             return _repository.GetAll();
         }
         /// <summary>
-        /// Uses IGenericRepository GetAll asynchronously with a DTO
+        /// Uses IGenericRepository GetAll asynchronously
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<EmployeeDto>> GetEmployeesAsync()
+        public async Task<IEnumerable<TEntity>> GetEmployeesAsync()
         {
-            var iEnumerableResults = await Task.Run(() => _repository.GetAll());
-
-            return iEnumerableResults.Select(emp => new EmployeeDto()
-            {
-                Id = emp.EmployeeID,
-                FirstName = emp.FirstName,
-                LastName = emp.LastName
-            });
+            IEnumerable<TEntity> iEnumerableResults = await Task.Run(() => _repository.GetAll());
+            return iEnumerableResults;
         }
         /// <summary>
         /// Remove single employee
@@ -88,11 +84,25 @@ namespace NorthWindEntityFramework
             }
 
             _repository.Delete(identifier);
-            _repository.Save();
 
-            return _repository.GetById(identifier) == null;
+            try
+            {
+                _repository.Save();
+                return _repository.GetById(identifier) == null;
+            }
+            catch (Exception ex)
+            {
+                /*
+                 * In this case the cause is the record has a dependency
+                 * on one or more orders.
+                 */
+                return false;
+            }
+
+            
 
         }
+
         /// <summary>
         /// Save changes 
         /// </summary>

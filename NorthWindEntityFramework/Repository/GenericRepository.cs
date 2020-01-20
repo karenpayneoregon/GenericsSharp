@@ -20,13 +20,17 @@ namespace NorthWindEntityFramework.Repository
         {
             _dbContext = Activator.CreateInstance<TContext>();
             _entity = _dbContext.Set<TEntity>();
-
         }
+
+        public TContext DbContext { get; set; }
         public GenericRepository(NorthContext context)
         {
             _dbContext = Activator.CreateInstance<TContext>();
+            _dbContext.Configuration.LazyLoadingEnabled = true;
             _entity = context.Set<TEntity>();
         }
+
+        public TContext Context => _dbContext;
         public IEnumerable<TEntity> GetAll()
         {
             return _entity.ToList();

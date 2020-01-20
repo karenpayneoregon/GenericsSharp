@@ -29,17 +29,18 @@
         private void InitializeComponent()
         {
             this.EmployeesGroupBox = new System.Windows.Forms.GroupBox();
+            this.EmployeeUpdateButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.EmployeeLastNameTextBox = new System.Windows.Forms.TextBox();
+            this.EmployeeFirstNameTextBox = new System.Windows.Forms.TextBox();
             this.GetByEmployeeIdButton = new System.Windows.Forms.Button();
             this.EmployeeDataGridView = new System.Windows.Forms.DataGridView();
             this.EmployeesInsertButton = new System.Windows.Forms.Button();
             this.EmployeesDeleteButton = new System.Windows.Forms.Button();
             this.IdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FullNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EmployeeFirstNameTextBox = new System.Windows.Forms.TextBox();
-            this.EmployeeLastNameTextBox = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.EmployeeUpdateButton = new System.Windows.Forms.Button();
+            this.LastNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EmployeesGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EmployeeDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -57,10 +58,52 @@
             this.EmployeesGroupBox.Controls.Add(this.EmployeesDeleteButton);
             this.EmployeesGroupBox.Location = new System.Drawing.Point(14, 13);
             this.EmployeesGroupBox.Name = "EmployeesGroupBox";
-            this.EmployeesGroupBox.Size = new System.Drawing.Size(379, 476);
+            this.EmployeesGroupBox.Size = new System.Drawing.Size(494, 476);
             this.EmployeesGroupBox.TabIndex = 0;
             this.EmployeesGroupBox.TabStop = false;
             this.EmployeesGroupBox.Text = "Employees";
+            // 
+            // EmployeeUpdateButton
+            // 
+            this.EmployeeUpdateButton.Location = new System.Drawing.Point(289, 401);
+            this.EmployeeUpdateButton.Name = "EmployeeUpdateButton";
+            this.EmployeeUpdateButton.Size = new System.Drawing.Size(75, 23);
+            this.EmployeeUpdateButton.TabIndex = 8;
+            this.EmployeeUpdateButton.Text = "Update";
+            this.EmployeeUpdateButton.UseVisualStyleBackColor = true;
+            this.EmployeeUpdateButton.Click += new System.EventHandler(this.EmployeeUpdateButton_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(130, 423);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(27, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Last";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(131, 401);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(26, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "First";
+            // 
+            // EmployeeLastNameTextBox
+            // 
+            this.EmployeeLastNameTextBox.Location = new System.Drawing.Point(163, 420);
+            this.EmployeeLastNameTextBox.Name = "EmployeeLastNameTextBox";
+            this.EmployeeLastNameTextBox.Size = new System.Drawing.Size(110, 20);
+            this.EmployeeLastNameTextBox.TabIndex = 5;
+            // 
+            // EmployeeFirstNameTextBox
+            // 
+            this.EmployeeFirstNameTextBox.Location = new System.Drawing.Point(163, 394);
+            this.EmployeeFirstNameTextBox.Name = "EmployeeFirstNameTextBox";
+            this.EmployeeFirstNameTextBox.Size = new System.Drawing.Size(110, 20);
+            this.EmployeeFirstNameTextBox.TabIndex = 4;
             // 
             // GetByEmployeeIdButton
             // 
@@ -79,12 +122,13 @@
             this.EmployeeDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.EmployeeDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.IdColumn,
-            this.FullNameColumn});
+            this.FullNameColumn,
+            this.LastNameColumn});
             this.EmployeeDataGridView.Location = new System.Drawing.Point(129, 25);
             this.EmployeeDataGridView.Name = "EmployeeDataGridView";
             this.EmployeeDataGridView.ReadOnly = true;
             this.EmployeeDataGridView.RowHeadersVisible = false;
-            this.EmployeeDataGridView.Size = new System.Drawing.Size(235, 350);
+            this.EmployeeDataGridView.Size = new System.Drawing.Size(348, 350);
             this.EmployeeDataGridView.TabIndex = 2;
             // 
             // EmployeesInsertButton
@@ -109,59 +153,24 @@
             // 
             // IdColumn
             // 
-            this.IdColumn.DataPropertyName = "Id";
+            this.IdColumn.DataPropertyName = "EmployeeID";
             this.IdColumn.HeaderText = "Id";
             this.IdColumn.Name = "IdColumn";
             this.IdColumn.ReadOnly = true;
             // 
             // FullNameColumn
             // 
-            this.FullNameColumn.DataPropertyName = "FullName";
-            this.FullNameColumn.HeaderText = "Name";
+            this.FullNameColumn.DataPropertyName = "FirstName";
+            this.FullNameColumn.HeaderText = "First";
             this.FullNameColumn.Name = "FullNameColumn";
             this.FullNameColumn.ReadOnly = true;
             // 
-            // EmployeeFirstNameTextBox
+            // LastNameColumn
             // 
-            this.EmployeeFirstNameTextBox.Location = new System.Drawing.Point(163, 394);
-            this.EmployeeFirstNameTextBox.Name = "EmployeeFirstNameTextBox";
-            this.EmployeeFirstNameTextBox.Size = new System.Drawing.Size(110, 20);
-            this.EmployeeFirstNameTextBox.TabIndex = 4;
-            // 
-            // EmployeeLastNameTextBox
-            // 
-            this.EmployeeLastNameTextBox.Location = new System.Drawing.Point(163, 420);
-            this.EmployeeLastNameTextBox.Name = "EmployeeLastNameTextBox";
-            this.EmployeeLastNameTextBox.Size = new System.Drawing.Size(110, 20);
-            this.EmployeeLastNameTextBox.TabIndex = 5;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(131, 401);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(26, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "First";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(130, 423);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(27, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Last";
-            // 
-            // EmployeeUpdateButton
-            // 
-            this.EmployeeUpdateButton.Location = new System.Drawing.Point(289, 401);
-            this.EmployeeUpdateButton.Name = "EmployeeUpdateButton";
-            this.EmployeeUpdateButton.Size = new System.Drawing.Size(75, 23);
-            this.EmployeeUpdateButton.TabIndex = 8;
-            this.EmployeeUpdateButton.Text = "Update";
-            this.EmployeeUpdateButton.UseVisualStyleBackColor = true;
-            this.EmployeeUpdateButton.Click += new System.EventHandler(this.EmployeeUpdateButton_Click);
+            this.LastNameColumn.DataPropertyName = "LastName";
+            this.LastNameColumn.HeaderText = "Last";
+            this.LastNameColumn.Name = "LastNameColumn";
+            this.LastNameColumn.ReadOnly = true;
             // 
             // Form1
             // 
@@ -187,13 +196,14 @@
         private System.Windows.Forms.Button EmployeesInsertButton;
         private System.Windows.Forms.DataGridView EmployeeDataGridView;
         private System.Windows.Forms.Button GetByEmployeeIdButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IdColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FullNameColumn;
         private System.Windows.Forms.Button EmployeeUpdateButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox EmployeeLastNameTextBox;
         private System.Windows.Forms.TextBox EmployeeFirstNameTextBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IdColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FullNameColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LastNameColumn;
     }
 }
 

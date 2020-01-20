@@ -13,7 +13,7 @@ namespace NorthWindEntityFrameworkWindowsForm
 {
     public partial class Form1 : Form
     {
-        private EmployeesOperations _employeesOperations = new EmployeesOperations();
+        private EmployeesOperations<Employee> _employeesOperations = new EmployeesOperations<Employee>();
         private BindingSource _employeeBindingSource = new BindingSource();
         public Form1()
         {
@@ -38,36 +38,42 @@ namespace NorthWindEntityFrameworkWindowsForm
             EmployeeDataGridView.InvokeIfRequired(d => { d.DataSource = _employeeBindingSource; });
 
             EmployeeDataGridView.Columns["idColumn"].Width = 30;
-            EmployeeDataGridView.Columns["FullNameColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            EmployeeDataGridView.Columns["FullNameColumn"].HeaderText = "Name";
+            EmployeeDataGridView.Columns["LastNameColumn"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
 
             EmployeeFirstNameTextBox.DataBindings.Add("Text", _employeeBindingSource, "FirstName");
             EmployeeLastNameTextBox.DataBindings.Add("Text", _employeeBindingSource, "LastName");
 
             EmployeesGroupBox.EnableButton();
         }
-
+        /// <summary>
+        /// Get current employee from table
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GetByEmployeeIdButton_Click(object sender, EventArgs e)
         {
-            var employeeId = ((EmployeeDto)_employeeBindingSource.Current).Id;
-            var employee = _employeesOperations.Edit(employeeId);
-            Console.WriteLine();
+            var employeeId = ((Employee)_employeeBindingSource.Current).EmployeeID;
+            Employee employee = _employeesOperations.Edit(employeeId);
+            MessageBox.Show($"ID: {employee.EmployeeID}\nBirthday: {employee.BirthDate.Value.Date:d}");
 
         }
         private void EmployeeUpdateButton_Click(object sender, EventArgs e)
         {
-            var empDto = ((EmployeeDto)_employeeBindingSource.Current);
-            var employee = _employeesOperations.Edit(empDto.Id);
+            var emp = ((Employee)_employeeBindingSource.Current);
+            var employee = _employeesOperations.Edit(emp.EmployeeID);
+
             employee.FirstName = EmployeeFirstNameTextBox.Text;
             employee.LastName = EmployeeLastNameTextBox.Text;
+
             _employeesOperations.Edit(employee);
+
 
         }
         private void EmployeesDeleteButton_Click(object sender, EventArgs e)
         {
 
-            var employeeId = ((EmployeeDto) _employeeBindingSource.Current).Id;
-           
+            var employeeId = ((Employee)_employeeBindingSource.Current).EmployeeID;
             var result = _employeesOperations.Delete(employeeId);
             if (result)
             {
@@ -91,7 +97,7 @@ namespace NorthWindEntityFrameworkWindowsForm
             {
                 FirstName = "Karen",
                 LastName = "Payne",
-                BirthDate = new DateTime(2000,1,1)
+                BirthDate = new DateTime(2000, 1, 1)
             };
 
             _employeesOperations.Add(employee);
@@ -100,9 +106,9 @@ namespace NorthWindEntityFrameworkWindowsForm
 
             if (results == 1)
             {
-                ((List<EmployeeDto>)_employeeBindingSource.DataSource).Add(new EmployeeDto()
+                ((List<Employee>)_employeeBindingSource.DataSource).Add(new Employee()
                 {
-                    Id = employee.EmployeeID,
+                    EmployeeID = employee.EmployeeID,
                     FirstName = employee.FirstName,
                     LastName = employee.LastName
                 });
@@ -114,9 +120,7 @@ namespace NorthWindEntityFrameworkWindowsForm
             {
                 MessageBox.Show("Save failed");
             }
-            
+
         }
-
-
     }
 }
