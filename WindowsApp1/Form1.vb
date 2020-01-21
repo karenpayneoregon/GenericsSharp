@@ -184,7 +184,85 @@ Public Class Form1
 
 
     End Sub
+
+    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
+        '
+        ' These value would come from the database table
+        '
+        Dim accountList As New List(Of String) From {
+                "COA-1000-001",
+                "COA-1000-002",
+                "COA-1000-003",
+                "COA-1000-005"}
+
+        Dim partList = accountList.
+                Select(
+                    Function(item)
+                        Dim parts = item.Split("-"c)
+                        Dim part1 = parts(0)
+                        Dim part2 = CInt(parts(1))
+                        Dim part3 = CInt(parts(2))
+                        Return New CoaItem With {
+                          .Part1 = part1,
+                          .Part2 = part2,
+                          .Part3 = part3
+                        }
+                    End Function).ToList()
+
+        Dim missingNumber = partList.NextValue()
+
+        If missingNumber > 0 Then
+            Console.WriteLine($"COA-1000-{missingNumber.ToString("D3")}")
+        Else
+            Console.WriteLine("No missing items in sequence")
+        End If
+
+    End Sub
+
+    Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+
+    End Sub
 End Class
+Public Class CoaItem
+    Public Property Part1() As String
+    Public Property Part2() As Integer
+    Public Property Part3() As Integer
+
+    Public Overrides Function ToString() As String
+        Return $"{Part1}-{Part2}-{Part3}"
+    End Function
+End Class
+Public Module Extensions
+    ''' <summary>
+    ''' Look for missing value for Part3 if any.
+    ''' If no missing value 0 is returned, otherwise
+    ''' the missing number in the sequence 
+    ''' </summary>
+    ''' <param name="list"></param>
+    ''' <returns></returns>
+    <Extension>
+    Public Function NextValue(list As List(Of CoaItem)) As Integer
+        Return list.Select(Function(item) item.Part3).ToList().FindMissing().FirstOrDefault()
+    End Function
+    ''' <summary>
+    ''' Finds the missing numbers in a list.
+    ''' </summary>
+    ''' <param name="list">List of numbers</param>
+    ''' <returns>Missing numbers</returns>
+    <Extension>
+    Public Function FindMissing(list As List(Of Integer)) As IEnumerable(Of Integer)
+
+        list.Sort()
+
+        Dim firstNumber = list.First()
+        Dim lastNumber = list.Last()
+        Dim range = Enumerable.Range(firstNumber, lastNumber - firstNumber)
+        Dim missingNumbers = range.Except(list)
+
+        Return missingNumbers
+
+    End Function
+End Module
 Public Module ControlExtensions
     <Extension>
     Public Sub InvokeIfRequired(Of T As ISynchronizeInvoke)(control As T, action As Action(Of T))
