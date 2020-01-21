@@ -15,13 +15,16 @@ namespace NorthWindEntityFramework
     /// Common operations
     /// </summary>
     /// <remarks>
+    /// This version creates an instance of NorthContext which
+    /// will change in the next part of the series.
+    /// 
     /// Note that cascading rules must be set properly on
     /// related tables.
     /// </remarks>
     public class EmployeesOperations<TEntity> where TEntity : class
     {
-        private IGenericRepository<TEntity> _repository = null;
-        private NorthContext _northContext = new NorthContext();
+        private readonly IGenericRepository<TEntity> _repository = null;
+        private readonly NorthContext _northContext = new NorthContext();
 
         public EmployeesOperations()
         {
@@ -90,6 +93,10 @@ namespace NorthWindEntityFramework
             /*
              * We do not want to remove orders so if there are orders
              * stop.
+             *
+             * Note we have a private instance of NorthContext, next part
+             * of this article this code will change to better work with it.
+             * For now this is simply educational
              */
             Employee employee = ((NorthContext)_repository.Context).
                 Employees.Include(emp => emp.Orders).FirstOrDefault(x => x.EmployeeID == identifier);

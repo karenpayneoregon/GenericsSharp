@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Basic1.Classes;
 using Basic1.Extensions;
 using static System.DateTime;
 
@@ -76,6 +77,47 @@ namespace Basic1
             {
                 Console.WriteLine($"{betweenDateTime:d} is not between {lowDateTime:d} and {highDateTime:d}");
             }
+        }
+
+        private void SimpleInterfaceButton_Click(object sender, EventArgs e)
+        {
+            Console.WriteLine("Non class example");
+            var person = new Person();
+            Console.WriteLine($"\tPerson says {person.Speak()}");
+
+            var dog = new Dog();
+            Console.WriteLine($"\tDog says {dog.Speak()}");
+
+            var cat = new Cat();
+            Console.WriteLine($"\tCat says {cat.Speak()}");
+
+            Console.WriteLine("Generic class example");
+
+            var personDemo = new AnimalGenericClass<Person>();
+            personDemo.CallThisMethodWhateverYouWant();
+
+            var dogDemo = new AnimalGenericClass<Dog>();
+            dogDemo.CallThisMethodWhateverYouWant();
+
+            var catDemo = new AnimalGenericClass<Cat>();
+            catDemo.CallThisMethodWhateverYouWant();
+
+            Console.WriteLine("Generic class example with generic property");
+
+            var p1 = new AnimalGenericClass<Person, string>{GenericVariable = "John"};
+            Console.WriteLine($"\t{p1.GenericVariable}");
+            var d1 = new AnimalGenericClass<Dog, string> { GenericVariable = "Fiddo" };
+            Console.WriteLine($"\t{d1.GenericVariable}");
+            var c1 = new AnimalGenericClass<Cat, string> { GenericVariable = "Kitty" };
+            Console.WriteLine($"\t{c1.GenericVariable}");
+
+            Console.WriteLine();
+
+            var p2 = new AnimalGenericClass<Person, string>() ;
+            
+            p2.SampleProcedure("Works at John's coffee shop");
+            Console.WriteLine(p2);
+
         }
     }
 
