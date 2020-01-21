@@ -10,6 +10,7 @@ Imports WindowsApp1.Classes
 
 Public Class Form1
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
         Dim backupTime = TimeSpan.Parse(ConfigurationManager.AppSettings("BackupTime"))
         Console.WriteLine($"TimeSpan.Parse: {backupTime}")
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Basic1.Interfaces;
 
 namespace Basic1.Classes
@@ -33,9 +34,15 @@ namespace Basic1.Classes
         }
 
         public TVariable GenericVariable {get;set;}
+
+
+
+
+
         public override string ToString()
         {
             return $"{GenericVariable}";
         }
     }
+
 }

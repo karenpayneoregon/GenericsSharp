@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Basic1.Classes;
@@ -15,6 +16,8 @@ namespace Basic1
 {
     public partial class Form1 : Form
     {
+        private static readonly Regex Regex1 = new Regex(@"[^0-9\.]+");
+
         public Form1()
         {
             InitializeComponent();

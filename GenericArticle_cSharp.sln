@@ -34,8 +34,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsLanguageExtensions"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Part 1", "Part 1", "{83EB725F-E5DF-4DE4-9C0B-DBCA416019EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelOleDbDataAdapter", "ExcelOleDbDataAdapter\ExcelOleDbDataAdapter.csproj", "{2C65FFB8-76E7-4901-B96C-5C660E74949D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneralExtensionMethods", "GeneralExtensionMethods\GeneralExtensionMethods.csproj", "{DBD7D6F6-F834-4400-B9F2-2819E5C8206F}"
 EndProject
 Global
@@ -80,10 +78,6 @@ Global
 		{7382CBFE-448B-4AE2-97B6-D5B56B6E7638}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7382CBFE-448B-4AE2-97B6-D5B56B6E7638}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7382CBFE-448B-4AE2-97B6-D5B56B6E7638}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2C65FFB8-76E7-4901-B96C-5C660E74949D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2C65FFB8-76E7-4901-B96C-5C660E74949D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2C65FFB8-76E7-4901-B96C-5C660E74949D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2C65FFB8-76E7-4901-B96C-5C660E74949D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DBD7D6F6-F834-4400-B9F2-2819E5C8206F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DBD7D6F6-F834-4400-B9F2-2819E5C8206F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBD7D6F6-F834-4400-B9F2-2819E5C8206F}.Release|Any CPU.ActiveCfg = Release|Any CPU
