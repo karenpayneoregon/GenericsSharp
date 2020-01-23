@@ -3,6 +3,7 @@ Imports System.ComponentModel
 Imports System.Configuration
 Imports System.Data.SqlClient
 Imports System.Drawing.Imaging
+Imports System.IO
 Imports System.Runtime.CompilerServices
 Imports System.Text
 Imports System.Text.RegularExpressions
@@ -221,7 +222,25 @@ Public Class Form1
 
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
 
+        Dim ListUsers = New List(Of String)(File.ReadAllLines("list.txt"))
+        Dim results = ListUsers.Select(Function(line, index) New With {
+                                          .Line = line,
+                                          .Index = index + 1}).
+                Where(Function(item) item.Line.Contains("ID"))
+
+        For Each line In results
+            Console.WriteLine($"{line.Index} - {line.Line}")
+        Next
+
     End Sub
+    Function CheckId(enumerator As IEnumerator) As Boolean
+
+        If enumerator.Current.ToString().Contains("ID") Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 End Class
 Public Class CoaItem
     Public Property Part1() As String
