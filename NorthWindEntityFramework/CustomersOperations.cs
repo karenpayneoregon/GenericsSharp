@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using NorthWindEntityFramework.Interfaces;
@@ -18,6 +19,7 @@ namespace NorthWindEntityFramework
     public class CustomersOperations
     {
         private IGenericRepository<Customer> _repository = null;
+        private readonly NorthContext _northContext = new NorthContext();
         public CustomersOperations()
         {
             _repository = new GenericRepository<Customer, NorthContext>();
@@ -95,6 +97,16 @@ namespace NorthWindEntityFramework
             return _repository.GetById(identifier) == null;
 
         }
+        /// <summary>
+        /// Perform a search
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public IEnumerable<Employee> SearchFor(Expression<Func<Employee, bool>> predicate)
+        {
+            return _northContext.Set<Employee>().Where(predicate).AsEnumerable();
+        }
+
         /// <summary>
         /// Save changes 
         /// </summary>
