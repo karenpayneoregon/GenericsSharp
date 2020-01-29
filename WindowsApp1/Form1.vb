@@ -163,6 +163,8 @@ Public Class Form1
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
 
+
+
         Dim line = "[""Mahmud"",""karen"",""mike"",""Махмуд"""
         Dim regex As New Regex("""(.*?)""")
 
@@ -220,7 +222,24 @@ Public Class Form1
 
     End Sub
 
+    Private ItemList As List(Of Item) = New List(Of Item)
+
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+
+
+        ItemList.Add(New Item() With {
+                        .Name = "Test1",
+                        .Font = New Font("Arial", 10, FontStyle.Bold),
+                        .X = 10,
+                        .Y = 9})
+        ItemList.Add(New Item() With {
+                        .Name = "Test2",
+                        .Font = New Font("Times New Roman", 16, FontStyle.Regular),
+                        .X = 10,
+                        .Y = 9})
+
+
+        Dim test = ItemList(1).Font
 
         Dim ListUsers = New List(Of String)(File.ReadAllLines("list.txt"))
         Dim results = ListUsers.Select(Function(line, index) New With {
@@ -240,6 +259,16 @@ Public Class Form1
         Else
             Return False
         End If
+    End Function
+End Class
+Public Class Item
+    Public Property Name() As String
+    Public Property Font() As Font
+    Public Property X() As Integer
+    Public Property Y() As Integer
+
+    Public Overrides Function ToString() As String
+        Return Name
     End Function
 End Class
 Public Class CoaItem
